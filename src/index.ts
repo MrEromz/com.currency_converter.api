@@ -22,10 +22,8 @@ const createServer = (): Application => {
   app.use(cors());
   app.use(express.json());
 
-    /**
-     * Service what is happening
-     */
-  app.use((_req: Request, _res: Response, next: NextFunction) => {
+
+    app.use((_req: Request, _res: Response, next: NextFunction) => {
     logger.http(`[${_req.method}] ${_req.url} - IP: ${_req.ip}`);
     next();
   });

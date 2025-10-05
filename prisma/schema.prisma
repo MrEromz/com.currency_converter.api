@@ -1,0 +1,40 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Auth {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  email         String       @unique
+  password      String
+  password_hash String
+  created_at    DateTime     @default(now())
+  profile       Profile?
+  conversions   Conversion[]
+  wallets       Wallet[]
+}
+
+model Profile {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  lastname   String?
+  firstname  String?
+  created_at DateTime @default(now())
+  auth       Auth     @relation(fields: [authId], references: [id])
+  authId     String   @unique @db.ObjectId
+}
+
+model Conversion {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  from_currency    String
+  to_currency      String
+  amount           Decimal
+  rate             Decimal
+  converted_amount Decimal
+  profile          Profile     @relation(fields: [profileId], references: [id])
+  profileId        String   @db.ObjectId
+  created_at       DateTime @default(now())
+}

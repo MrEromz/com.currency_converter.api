@@ -7,8 +7,8 @@
     "build": "tsc -p ./"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
     "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/node": "^24.6.2",
     "@types/supertest": "^6.0.2",
@@ -28,6 +28,7 @@
     "dotenv": "^17.2.3",
     "express": "^4.19.2",
     "helmet": "^8.1.0",
+    "prisma": "^6.16.3",
     "winston": "^3.13.0"
   }
 }
