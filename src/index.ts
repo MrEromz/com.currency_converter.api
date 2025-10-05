@@ -15,14 +15,10 @@ const port: number = Number(process.env.PORT) || 9000;
 const createServer = (): Application => {
   const app = express();
 
-
-  // Set various HTTP headers for security
   app.use(helmet());
-  // Enable Cross-Origin Resource Sharing
   app.use(cors());
   app.use(express.json());
-
-
+    app.use(express.urlencoded({extended: false}));
     app.use((_req: Request, _res: Response, next: NextFunction) => {
     logger.http(`[${_req.method}] ${_req.url} - IP: ${_req.ip}`);
     next();

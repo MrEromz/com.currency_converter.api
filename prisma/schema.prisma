@@ -8,33 +8,34 @@ generator client {
 }
 
 model Auth {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  email         String       @unique
-  password      String
-  password_hash String
-  created_at    DateTime     @default(now())
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  email         String   @unique
+  password_hash String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
   profile       Profile?
-  conversions   Conversion[]
-  wallets       Wallet[]
 }
 
 model Profile {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  lastname   String?
-  firstname  String?
-  created_at DateTime @default(now())
-  auth       Auth     @relation(fields: [authId], references: [id])
-  authId     String   @unique @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  lastname    String?
+  firstname   String?
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  auth        Auth        @relation(fields: [auth_id], references: [id])
+  auth_id     String      @unique @db.ObjectId
+  conversions Conversion[]
 }
 
 model Conversion {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   from_currency    String
   to_currency      String
-  amount           Decimal
-  rate             Decimal
-  converted_amount Decimal
-  profile          Profile     @relation(fields: [profileId], references: [id])
-  profileId        String   @db.ObjectId
+  amount           String
+  rate             String
+  converted_amount String
+  profile          Profile  @relation(fields: [profile_id], references: [id])
+  profile_id       String   @db.ObjectId
   created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
 }

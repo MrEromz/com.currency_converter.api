@@ -1,14 +1,20 @@
 import { Request, Response } from 'express';
-import logger  from "../config/logger";
+import { BaseController } from './baseController';
 
-export const login = (_req: Request, _res: Response) => {
-    logger.info('Login attempt');
+class SessionController extends BaseController {
+  public login = (_req: Request, res: Response) => {
+    this.logger.info('Login attempt');
     // In a real app, you would validate user credentials here
-    _res.status(200).json({ message: 'Login successful' });
-};
+    this.ok(res, { message: 'Login successful' });
+  };
 
-export const logout = (_req: Request, _res: Response) => {
-    logger.info('Logout attempt');
+  public logout = (_req: Request, res: Response) => {
+    this.logger.info('Logout attempt');
     // In a real app, you would invalidate a session/token here
-    _res.status(200).json({ message: 'Logout successful' });
-};
+    this.ok(res, { message: 'Logout successful' });
+  };
+}
+
+const sessionController = new SessionController();
+export const login = sessionController.login;
+export const logout = sessionController.logout;
