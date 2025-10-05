@@ -6,8 +6,8 @@ import {
 
 const router = Router()
 
-router.route('/v1/session')
-    .post(login)
-    .delete(logout)
+router.route('/session/login')
+    .get(login)
+router.route('/session/logout').get(logout)
 
 export default router

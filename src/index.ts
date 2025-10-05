@@ -35,7 +35,7 @@ const createServer = (): Application => {
         res.status(200).send('OK');
     });
 
-  app.use('/api', routes);
+  app.use('/api/v1', routes);
 
   return app;
 };
