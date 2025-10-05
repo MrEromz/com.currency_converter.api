@@ -1,0 +1,16 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+    "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./build",
+    "esModuleInterop": true,
+      "noUnusedParameters": true,
+    "strict": true
+    },
+  "include": ["src/**/*.ts",
+    "tests/**/*.ts",
+    "src/types/global.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}
