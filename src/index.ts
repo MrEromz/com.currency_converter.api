@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import logger from './config/logger';
 import routes from './routes';
+import {expressjwt} from "express-jwt";
+import jsonwebtoken from "jsonwebtoken";
 
 dotenv.config();
 
@@ -24,7 +26,6 @@ const createServer = (): Application => {
     next();
   });
 
-    // --- Routes --- //
     app.get('/', (_req: Request, res: Response) => {
         res.status(200).send('OK');
     });

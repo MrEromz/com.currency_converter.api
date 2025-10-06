@@ -1,9 +1,11 @@
 import {Request, Response} from 'express';
 import {Logger} from 'winston';
 import loggerInstance from '../config/logger';
+import prisma from '../config/prisma';
 
 export abstract class BaseController {
     protected readonly logger: Logger;
+    protected readonly prisma = prisma;
 
     constructor() {
         this.logger = loggerInstance;

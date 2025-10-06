@@ -1,15 +1,22 @@
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
+  output = "../src/generated/prisma"
 }
 
-model Auth {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  email         String   @unique
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AuthUser {
+  id    String @id @default(cuid())
+  email String @unique
   password_hash String?
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -17,25 +24,25 @@ model Auth {
 }
 
 model Profile {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(cuid())
   lastname    String?
   firstname   String?
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  auth        Auth        @relation(fields: [auth_id], references: [id])
-  auth_id     String      @unique @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  auth_id    String   @unique
+  auth       AuthUser @relation(fields: [auth_id], references: [id])
   conversions Conversion[]
 }
 
 model Conversion {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String   @id @default(cuid())
   from_currency    String
   to_currency      String
-  amount           String
-  rate             String
-  converted_amount String
-  profile          Profile  @relation(fields: [profile_id], references: [id])
-  profile_id       String   @db.ObjectId
+  amount           Decimal
+  rate             Decimal
+  converted_amount Decimal
+  profile          Profile? @relation(fields: [profile_id], references: [id])
+  profile_id       String?
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
 }
