@@ -3,9 +3,12 @@
     "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "./build",
+      "incremental": true,
+      "outDir": "dist",
     "esModuleInterop": true,
       "noUnusedParameters": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
     "strict": true
     },
   "include": ["src/**/*.ts",

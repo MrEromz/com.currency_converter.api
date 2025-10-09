@@ -10,7 +10,6 @@ import {errorHandler} from './middleware/errorHandler';
 
 const router = Router();
 
-// Rate limiter for login attempts to prevent brute-force attacks
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     limit: 10, // Limit each IP to 10 requests per `window`
@@ -25,12 +24,13 @@ const requireAuth = jwt({
 });
 
 // Public login route
-router.get('/session/login', loginLimiter, login);
+router.post('/session/login', loginLimiter, login);
 
 // Protected logout route
-router.get('/session/logout', requireAuth, logout);
+router.post('/session/logout', requireAuth, logout);
 
-router.post('/signup', requireAuth, signup);
+//this is a post route for testing
+router.post('/session/signup', signup);
 
 // Custom error handling middleware
 router.use(errorHandler);

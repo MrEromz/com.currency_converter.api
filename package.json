@@ -4,8 +4,16 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "start": "nodemon --exec ts-node src/index.ts",
-    "build": "tsc -p ./"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "yarn migrate:deploy && tsc",
+    "start": "node dist/index.js",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:status": "prisma migrate status",
+    "generate": "prisma generate"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -27,6 +35,8 @@
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.19.2",
@@ -34,6 +44,7 @@
     "express-rate-limit": "^7.3.1",
     "helmet": "^8.1.0",
     "prisma": "^6.16.3",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "zod": "^4.1.12"
   }
 }
